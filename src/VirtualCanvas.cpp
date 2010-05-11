@@ -3,6 +3,13 @@
 VirtualCanvas::VirtualCanvas(CanvasManager *cm){
 	this->cm = cm;
 	xor_mode = offset_x = offset_y = 0;
+	parent = NULL;
+}
+
+VirtualCanvas::VirtualCanvas(VirtualCanvas *parent){
+	cm = NULL;
+	xor_mode = offset_x = offset_y = 0;
+	this->parent = parent;
 }
 
 
@@ -75,6 +82,26 @@ void VirtualCanvas::drawChar(int x, int y, int row, int col, int size, char c){
 	}
 }
 
+void VirtualCanvas::drawBar(int x1, int y1, int x2, int y2, int col, int val, int max, int type){
+	x1 += offset_x;
+	x2 += offset_x;
+	y1 += offset_y;
+	y2 += offset_y;
+
+	g15r_drawBar(cm->getCanvas(), x1, y1, x2, y2, col, val, max, type);
+
+}
+
+void VirtualCanvas::clearScreen(int col){
+	//If we ask to actually clear the screen with the g15render API,
+	//we will destroy the entire screen not just our 'virtual' screen
+	int x1 = offset_x;
+	int y1 = offset_y;
+	int x2 = offset_x + G15_LCD_WIDTH;
+	int y2 = offset_y + G15_LCD_HEIGHT;
+	drawBox(x1, y1, x2, y2, col, 0, 1);
+}
+
 void VirtualCanvas::setXorMode(int mode){
 	xor_mode = mode;
 }
@@ -83,3 +110,26 @@ void VirtualCanvas::setOffset(int x, int y){
 	offset_x = x;
 	offset_y = y;
 }
+
+int VirtualCanvas::getGlobalXOffset(){
+	if(parent){
+		return getLocalXOffset() + parent->getLocalXOffset();
+	}
+	return getLocalXOffset();
+}
+
+int VirtualCanvas::getGlobalYOffset(){
+	if(parent){
+		return getLocalYOffset() + parent->getLocalYOffset();
+	}
+	return getLocalYOffset();
+
+}
+
+CanvasManager *VirtualCanvas::getCanvas(){
+	if(parent){
+		return parent->getCanvas();
+	}
+	return cm;
+}
+
