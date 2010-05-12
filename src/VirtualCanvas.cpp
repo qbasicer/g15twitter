@@ -4,40 +4,58 @@ VirtualCanvas::VirtualCanvas(CanvasManager *cm){
 	this->cm = cm;
 	xor_mode = offset_x = offset_y = 0;
 	parent = NULL;
+	width = cm->getWidth();
+	height = cm->getHeight();
 }
 
 VirtualCanvas::VirtualCanvas(VirtualCanvas *parent){
 	cm = NULL;
 	xor_mode = offset_x = offset_y = 0;
 	this->parent = parent;
+	width = parent->getWidth();
+	height = parent->getHeight();
 }
 
 
 void VirtualCanvas::drawRoundedBox(int x1, int y1, int x2, int y2, int dofill, int fill){
-	x1 += offset_x;
-	x2 += offset_x;
-	y1 += offset_y;
-	y2 += offset_y;
+	internalSetXorMode(xor_mode);
+	
+	x1 += getGlobalXOffset();
+	x2 += getGlobalXOffset();
+	y1 += getGlobalYOffset();
+	y2 += getGlobalYOffset();
 	g15r_drawRoundBox (cm->getCanvas(), x1, y1, x2, y2, dofill, fill);
+	
+	internalSetXorMode(0);
 }
 
 void VirtualCanvas::drawBox(int x1, int y1, int x2, int y2, int color, int thick, int fill){
-	x1 += offset_x;
-	x2 += offset_x;
-	y1 += offset_y;
-	y2 += offset_y;
+	internalSetXorMode(xor_mode);
+	
+	x1 += getGlobalXOffset();
+	x2 += getGlobalXOffset();
+	y1 += getGlobalYOffset();
+	y2 += getGlobalYOffset();
 	g15r_pixelBox (cm->getCanvas(), x1, y1, x2, y2, color, thick, fill);
+	
+	internalSetXorMode(0);
 }
 
 void VirtualCanvas::drawCircle(int x, int y, int r, int fill, int color){
-	x += offset_x;
-	y += offset_y;
+	internalSetXorMode(xor_mode);
+	
+	x += getGlobalXOffset();
+	y += getGlobalYOffset();
 	g15r_drawCircle (cm->getCanvas(), x, y, r, fill, color);
+	
+	internalSetXorMode(0);
 }
 
 void VirtualCanvas::drawText(int x, int y, int size, const char* msg){
-	x += offset_x;
-	y += offset_y;
+	internalSetXorMode(xor_mode);
+	
+	x += getGlobalXOffset();
+	y += getGlobalYOffset();
 	unsigned int i;
 	int row = 0;
 	int col = 0;
@@ -63,11 +81,14 @@ void VirtualCanvas::drawText(int x, int y, int size, const char* msg){
 		}
 		
 	}
+	
+	internalSetXorMode(0);
 }
 
 void VirtualCanvas::drawChar(int x, int y, int row, int col, int size, char c){
-	x += offset_x;
-	y += offset_y;
+	internalSetXorMode(xor_mode);
+	x += getGlobalXOffset();
+	y += getGlobalYOffset();
 	switch(size){
 		case G15_TEXT_SMALL:
 			g15r_renderCharacterSmall(cm->getCanvas(),col,row,c,x,y);
@@ -80,30 +101,44 @@ void VirtualCanvas::drawChar(int x, int y, int row, int col, int size, char c){
 			g15r_renderCharacterLarge(cm->getCanvas(),col,row,c,x,y);
 			break;
 	}
+	internalSetXorMode(0);
 }
 
 void VirtualCanvas::drawBar(int x1, int y1, int x2, int y2, int col, int val, int max, int type){
-	x1 += offset_x;
-	x2 += offset_x;
-	y1 += offset_y;
-	y2 += offset_y;
+	internalSetXorMode(xor_mode);
+	
+	x1 += getGlobalXOffset();
+	x2 += getGlobalXOffset();
+	y1 += getGlobalYOffset();
+	y2 += getGlobalYOffset();
 
 	g15r_drawBar(cm->getCanvas(), x1, y1, x2, y2, col, val, max, type);
-
+	internalSetXorMode(0);
 }
 
 void VirtualCanvas::clearScreen(int col){
+	internalSetXorMode(xor_mode);
+	
 	//If we ask to actually clear the screen with the g15render API,
 	//we will destroy the entire screen not just our 'virtual' screen
-	int x1 = offset_x;
-	int y1 = offset_y;
-	int x2 = offset_x + G15_LCD_WIDTH;
-	int y2 = offset_y + G15_LCD_HEIGHT;
+	int x1 = getGlobalXOffset();
+	int y1 = getGlobalYOffset();
+	int x2 = getGlobalXOffset() + getWidth();
+	int y2 = getGlobalYOffset() + getHeight();
 	drawBox(x1, y1, x2, y2, col, 0, 1);
+	
+	internalSetXorMode(0);
+}
+
+void VirtualCanvas::internalSetXorMode(int mode){
+	if(parent){
+		parent->setXorMode(mode);
+	}
+	cm->setXorMode(mode);
 }
 
 void VirtualCanvas::setXorMode(int mode){
-	xor_mode = mode;
+	xor_mode = mode;	
 }
 
 void VirtualCanvas::setOffset(int x, int y){

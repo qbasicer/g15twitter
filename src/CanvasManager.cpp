@@ -8,6 +8,8 @@ CanvasManager::CanvasManager(){
 	canvas->mode_cache = 0;
 	canvas->mode_reverse = 0;
 	canvas->mode_xor = 0;
+	width = G15_LCD_WIDTH;
+	height = G15_LCD_HEIGHT;
 	
 
 }

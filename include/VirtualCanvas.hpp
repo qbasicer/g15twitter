@@ -25,7 +25,10 @@ class VirtualCanvas{
 		inline int getHeight(){return height;}
 		inline void setWidth(int height){this->height = height;}
 		inline void setHeight(int width){this->width = width;}
+		
 	protected:
+		inline void internalSetXorMode(int mode);
+		
 		VirtualCanvas *parent;
 		CanvasManager *cm;
 		int xor_mode;
