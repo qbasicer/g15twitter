@@ -29,6 +29,9 @@ class VirtualCanvas : public Renderable{
 		inline void setWidth(int height){this->height = height;}
 		inline void setHeight(int width){this->width = width;}
 		virtual int render(){return 0;}
+		
+		void addWidget(G15Widget *obj, int layer);
+		void deleteWidget(G15Widget *obj);
 	protected:
 		inline void internalSetXorMode(int mode);
 		

@@ -7,6 +7,7 @@ class G15Widget {
 	public:
 		G15Widget(CanvasManager *cm);
 		G15Widget(VirtualCanvas *vcanvas);
+		~G15Widget();
 	private:
 		void init(VirtualCanvas *vcanvas);
 		VirtualCanvas *canvas;

@@ -168,6 +168,12 @@ int VirtualCanvas::getGlobalYOffset(){
 
 }
 
+void VirtualCanvas::addWidget(G15Widget *obj, int layer){
+}
+
+void VirtualCanvas::deleteWidget(G15Widget *obj){
+}
+
 CanvasManager *VirtualCanvas::getCanvas(){
 	if(parent){
 		return parent->getCanvas();
