@@ -1,8 +1,11 @@
 #ifndef _VIRTUALCANVAS_HPP_
 #define _VIRTUALCANVAS_HPP_
 
+class VirtualCanvas;
+
 #include "CanvasManager.hpp"
 #include "Renderable.hpp"
+#include "G15Widget.hpp"
 
 class VirtualCanvas : public Renderable{
 	public:
