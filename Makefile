@@ -3,7 +3,7 @@
 C             = gcc
 CXX           = g++
 DEFINES       = 
-CFLAGS        = -pipe -march=native -O2 -pipe -fno-ident -Wall -W -D_REENTRANT $(DEFINES)
+CFLAGS        = -g -pipe -march=native -O2 -pipe -fno-ident -Wall -W -D_REENTRANT $(DEFINES)
 CXXFLAGS	  = $(CFLAGS)
 INCPATH       = -Iinclude
 LIBS          = -lg15render -lg15daemon_client

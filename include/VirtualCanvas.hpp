@@ -2,11 +2,14 @@
 #define _VIRTUALCANVAS_HPP_
 
 #include "CanvasManager.hpp"
+#include "Renderable.hpp"
 
-class VirtualCanvas{
+class VirtualCanvas : public Renderable{
 	public:
 		VirtualCanvas(CanvasManager *cm);
 		VirtualCanvas(VirtualCanvas *parent);
+		~VirtualCanvas();
+		
 		void drawRoundedBox(int x1, int y1, int x2, int y2, int border, int fill);
 		void drawBox(int x1, int y1, int x2, int y2, int color, int thick, int fill);
 		void drawCircle(int x, int y, int r, int fill, int color);
@@ -25,7 +28,7 @@ class VirtualCanvas{
 		inline int getHeight(){return height;}
 		inline void setWidth(int height){this->height = height;}
 		inline void setHeight(int width){this->width = width;}
-		
+		virtual int render(){return 0;}
 	protected:
 		inline void internalSetXorMode(int mode);
 		
@@ -36,6 +39,8 @@ class VirtualCanvas{
 		int offset_y;
 		int height;
 		int width;
+	private:
+		void init();
 };
 
 #endif

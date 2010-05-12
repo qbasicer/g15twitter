@@ -2,20 +2,27 @@
 
 VirtualCanvas::VirtualCanvas(CanvasManager *cm){
 	this->cm = cm;
-	xor_mode = offset_x = offset_y = 0;
-	parent = NULL;
-	width = cm->getWidth();
-	height = cm->getHeight();
+	this->parent = NULL;
+	init();	
 }
 
 VirtualCanvas::VirtualCanvas(VirtualCanvas *parent){
-	cm = NULL;
-	xor_mode = offset_x = offset_y = 0;
+	this->cm = NULL;
 	this->parent = parent;
-	width = parent->getWidth();
-	height = parent->getHeight();
+	init();	
 }
 
+VirtualCanvas::~VirtualCanvas(){
+	getCanvas()->removeRendering(this);
+}
+
+void VirtualCanvas::init(){
+	xor_mode = offset_x = offset_y = 0;
+	width = parent->getWidth();
+	height = parent->getHeight();
+	
+	getCanvas()->registerRendering(this);
+}
 
 void VirtualCanvas::drawRoundedBox(int x1, int y1, int x2, int y2, int dofill, int fill){
 	internalSetXorMode(xor_mode);
