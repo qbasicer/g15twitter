@@ -18,6 +18,7 @@ void CanvasManager::render(){
 	for(unsigned int i = 0; i < renderObject.size(); i++){
 		renderObject[i]->render();
 	}
+	send();
 }
 
 int CanvasManager::registerRendering(Renderable *obj){

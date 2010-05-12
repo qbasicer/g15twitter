@@ -70,6 +70,7 @@ void VirtualCanvas::drawText(int x, int y, int size, const char* msg){
 	unsigned int i;
 	int row = 0;
 	int col = 0;
+	printf("VirtualCanvas::drawText(%d,%d,%d,%s)\n", x, y, size, msg);
 	for(i = 0; i < strlen(msg); i++){
 		if(msg[i] == '\n'){
 			col = 0;
@@ -174,11 +175,11 @@ int VirtualCanvas::getGlobalYOffset(){
 }
 
 int VirtualCanvas::render(){
+	paint();
 	printf("VirtualCanvas::render() (this=%p)\n",this);
 	for(unsigned int i = 0; i < renderObject.size(); i++){
 		renderObject[i]->render();
 	}
-	paint();
 	return 0;
 }
 
