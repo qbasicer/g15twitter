@@ -12,8 +12,6 @@ class G15Widget : public VirtualCanvas{
 		~G15Widget();
 		inline VirtualCanvas *getCanvas(){return canvas;}
 		virtual int render() = 0;
-		inline int getHeight(){return canvas->getHeight();}
-		inline int getWidth(){return canvas->getWidth();}
 	private:
 		void init(VirtualCanvas *vcanvas);
 		VirtualCanvas *canvas;
