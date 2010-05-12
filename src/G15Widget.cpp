@@ -14,6 +14,8 @@ G15Widget::~G15Widget(){
 
 void G15Widget::init(VirtualCanvas *vcanvas){
 	canvas = vcanvas;
-	canvas->addWidget(this, 0);
+	if(canvas != this){
+		canvas->addWidget(this, 0);
+	}
 }
 

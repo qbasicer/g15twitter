@@ -4,14 +4,22 @@
 #include "SampleTwitterScreen.hpp"
 
 SampleTwitterScreen::SampleTwitterScreen(CanvasManager *cm):G15Widget(cm){
-	
+	init();
 }
 
 SampleTwitterScreen::SampleTwitterScreen(VirtualCanvas *vc):G15Widget(vc){
-	
+	init();
+}
+
+void SampleTwitterScreen::init(){
+	header = new G15TextLabel("<NobodyActually> (2h)", this);
+	body = new G15TextLabel("Testing string\n", this);
+	addWidget(header,0);
+	addWidget(body,0);
 }
 
 int SampleTwitterScreen::render(){
+	VirtualCanvas::render();
 	VirtualCanvas *vc = getCanvas();
 	int i;
 	const char* str = "Testing string\n";
@@ -26,11 +34,11 @@ int SampleTwitterScreen::render(){
 		vc->drawText(0, 9+i, G15_TEXT_MED, str);
 		vc->drawBar(0, 0, 160, 7, G15_PIXEL_FILL, 1, 1, 0);
 		vc->setXorMode(1);
-		vc->drawText(0, 1, G15_TEXT_MED, "<NobodyActually> (2h)");
+		//vc->drawText(0, 1, G15_TEXT_MED, "<NobodyActually> (2h)");
 		vc->setXorMode(1);
 		vc->drawBar(0, 34, 160, 42, G15_PIXEL_NOFILL, 1, 1, 0);
 		vc->drawRoundedBox(0, 35, 38, 50, G15_PIXEL_NOFILL, G15_PIXEL_FILL);
-		vc->drawText(5,37,G15_TEXT_MED,"PREV");
+		//vc->drawText(5,37,G15_TEXT_MED,"PREV");
 		vc->getCanvas()->send();
 		if(i % 7){
 			usleep(50000);

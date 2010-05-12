@@ -1,3 +1,4 @@
+#include <cstdio>
 #include "VirtualCanvas.hpp"
 
 VirtualCanvas::VirtualCanvas(CanvasManager *cm){
@@ -6,6 +7,7 @@ VirtualCanvas::VirtualCanvas(CanvasManager *cm){
 	width = cm->getWidth();
 	height = cm->getHeight();
 	init();	
+	getCanvas()->registerRendering(this);
 }
 
 VirtualCanvas::VirtualCanvas(VirtualCanvas *parent){
@@ -23,7 +25,7 @@ VirtualCanvas::~VirtualCanvas(){
 void VirtualCanvas::init(){
 	xor_mode = offset_x = offset_y = 0;
 	
-	getCanvas()->registerRendering(this);
+	
 }
 
 void VirtualCanvas::drawRoundedBox(int x1, int y1, int x2, int y2, int dofill, int fill){
@@ -33,7 +35,7 @@ void VirtualCanvas::drawRoundedBox(int x1, int y1, int x2, int y2, int dofill, i
 	x2 += getGlobalXOffset();
 	y1 += getGlobalYOffset();
 	y2 += getGlobalYOffset();
-	g15r_drawRoundBox (cm->getCanvas(), x1, y1, x2, y2, dofill, fill);
+	g15r_drawRoundBox (getCanvas()->getCanvas(), x1, y1, x2, y2, dofill, fill);
 	
 	internalSetXorMode(0);
 }
@@ -75,14 +77,14 @@ void VirtualCanvas::drawText(int x, int y, int size, const char* msg){
 		}else{
 			switch(size){
 				case G15_TEXT_SMALL:
-					g15r_renderCharacterSmall(cm->getCanvas(),col,row,msg[i],x,y);
+					g15r_renderCharacterSmall(getCanvas()->getCanvas(),col,row,msg[i],x,y);
 					break;
 				default:
 				case G15_TEXT_MED:
-					g15r_renderCharacterMedium(cm->getCanvas(),col,row,msg[i],x,y);
+					g15r_renderCharacterMedium(getCanvas()->getCanvas(),col,row,msg[i],x,y);
 					break;
 				case G15_TEXT_LARGE:
-					g15r_renderCharacterLarge(cm->getCanvas(),col,row,msg[i],x,y);
+					g15r_renderCharacterLarge(getCanvas()->getCanvas(),col,row,msg[i],x,y);
 					break;
 			}
 				
@@ -100,14 +102,14 @@ void VirtualCanvas::drawChar(int x, int y, int row, int col, int size, char c){
 	y += getGlobalYOffset();
 	switch(size){
 		case G15_TEXT_SMALL:
-			g15r_renderCharacterSmall(cm->getCanvas(),col,row,c,x,y);
+			g15r_renderCharacterSmall(getCanvas()->getCanvas(),col,row,c,x,y);
 			break;
 		default:
 		case G15_TEXT_MED:
-			g15r_renderCharacterMedium(cm->getCanvas(),col,row,c,x,y);
+			g15r_renderCharacterMedium(getCanvas()->getCanvas(),col,row,c,x,y);
 			break;
 		case G15_TEXT_LARGE:
-			g15r_renderCharacterLarge(cm->getCanvas(),col,row,c,x,y);
+			g15r_renderCharacterLarge(getCanvas()->getCanvas(),col,row,c,x,y);
 			break;
 	}
 	internalSetXorMode(0);
@@ -121,7 +123,7 @@ void VirtualCanvas::drawBar(int x1, int y1, int x2, int y2, int col, int val, in
 	y1 += getGlobalYOffset();
 	y2 += getGlobalYOffset();
 
-	g15r_drawBar(cm->getCanvas(), x1, y1, x2, y2, col, val, max, type);
+	g15r_drawBar(getCanvas()->getCanvas(), x1, y1, x2, y2, col, val, max, type);
 	internalSetXorMode(0);
 }
 
@@ -142,8 +144,9 @@ void VirtualCanvas::clearScreen(int col){
 void VirtualCanvas::internalSetXorMode(int mode){
 	if(parent){
 		parent->setXorMode(mode);
+	}else{
+		cm->setXorMode(mode);
 	}
-	cm->setXorMode(mode);
 }
 
 void VirtualCanvas::setXorMode(int mode){
@@ -171,6 +174,7 @@ int VirtualCanvas::getGlobalYOffset(){
 }
 
 int VirtualCanvas::render(){
+	printf("VirtualCanvas::render() (this=%p)\n",this);
 	for(unsigned int i = 0; i < renderObject.size(); i++){
 		renderObject[i]->render();
 	}
