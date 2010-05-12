@@ -177,11 +177,11 @@ int VirtualCanvas::render(){
 	return 0;
 }
 
-void VirtualCanvas::addWidget(G15Widget *obj, int layer){
+void VirtualCanvas::addWidget(VirtualCanvas *obj, int layer){
 	renderObject.push_back(obj);
 }
 
-void VirtualCanvas::deleteWidget(G15Widget *obj){
+void VirtualCanvas::deleteWidget(VirtualCanvas *obj){
 	for(unsigned int i = 0; i < renderObject.size(); i++){
 		if(renderObject[i] == obj){
 			renderObject.erase(renderObject.begin()+i);

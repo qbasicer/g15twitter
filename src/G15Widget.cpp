@@ -1,12 +1,11 @@
 #include "G15Widget.hpp"
 
-G15Widget::G15Widget(CanvasManager *cm){
-	VirtualCanvas *vcanvas = new VirtualCanvas(cm);
-	init(vcanvas);
+G15Widget::G15Widget(CanvasManager *cm):VirtualCanvas(cm){
+	init(this);
 }
 
-G15Widget::G15Widget(VirtualCanvas *vcanvas){
-	init(vcanvas);
+G15Widget::G15Widget(VirtualCanvas *vc):VirtualCanvas(vc){
+	init(this);
 }
 
 G15Widget::~G15Widget(){

@@ -1,11 +1,8 @@
 #ifndef _VIRTUALCANVAS_HPP_
 #define _VIRTUALCANVAS_HPP_
 
-class VirtualCanvas;
-
 #include "CanvasManager.hpp"
 #include "Renderable.hpp"
-#include "G15Widget.hpp"
 
 class VirtualCanvas : public Renderable{
 	public:
@@ -33,8 +30,8 @@ class VirtualCanvas : public Renderable{
 		inline void setHeight(int width){this->width = width;}
 		virtual int render();
 		
-		void addWidget(G15Widget *obj, int layer);
-		void deleteWidget(G15Widget *obj);
+		void addWidget(VirtualCanvas *obj, int layer);
+		void deleteWidget(VirtualCanvas *obj);
 	protected:
 		inline void internalSetXorMode(int mode);
 		

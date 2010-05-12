@@ -14,7 +14,7 @@ SampleTwitterScreen::SampleTwitterScreen(VirtualCanvas *vc):G15Widget(vc){
 int SampleTwitterScreen::render(){
 	VirtualCanvas *vc = getCanvas();
 	int i;
-	char* str = "Testing string\n";
+	const char* str = "Testing string\n";
 	int lines = 1;
 	int eend = 0;
 	int scrolls = lines - 3;
@@ -38,4 +38,5 @@ int SampleTwitterScreen::render(){
 			sleep(3);
 		}
 	}
+	return 0;
 }
