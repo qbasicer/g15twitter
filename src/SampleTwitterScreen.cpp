@@ -18,8 +18,7 @@ void SampleTwitterScreen::init(){
 	addWidget(body,0);
 }
 
-int SampleTwitterScreen::render(){
-	VirtualCanvas::render();
+int SampleTwitterScreen::paint(){
 	VirtualCanvas *vc = getCanvas();
 	int i;
 	const char* str = "Testing string\n";

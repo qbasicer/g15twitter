@@ -9,7 +9,7 @@ class SampleTwitterScreen : public G15Widget {
 		SampleTwitterScreen(CanvasManager *cm);
 		SampleTwitterScreen(VirtualCanvas *vc);
 		
-		virtual int render();
+		virtual int paint();
 	private:
 		void init();
 		G15TextLabel *header;

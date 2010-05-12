@@ -8,7 +8,7 @@ class G15TextLabel : public G15Widget {
 		G15TextLabel(const char* value, G15Widget *parent);
 		void setText(const char* value);
 		const char* getText();
-		virtual int render();
+		virtual int paint();
 	private:
 		char* text;
 };

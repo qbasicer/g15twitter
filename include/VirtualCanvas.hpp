@@ -29,6 +29,7 @@ class VirtualCanvas : public Renderable{
 		inline void setWidth(int height){this->height = height;}
 		inline void setHeight(int width){this->width = width;}
 		virtual int render();
+		virtual int paint();
 		
 		void addWidget(VirtualCanvas *obj, int layer);
 		void deleteWidget(VirtualCanvas *obj);

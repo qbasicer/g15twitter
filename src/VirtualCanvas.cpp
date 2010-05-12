@@ -178,6 +178,11 @@ int VirtualCanvas::render(){
 	for(unsigned int i = 0; i < renderObject.size(); i++){
 		renderObject[i]->render();
 	}
+	paint();
+	return 0;
+}
+
+int VirtualCanvas::paint(){
 	return 0;
 }
 
