@@ -10,8 +10,14 @@ CanvasManager::CanvasManager(){
 	canvas->mode_xor = 0;
 	width = G15_LCD_WIDTH;
 	height = G15_LCD_HEIGHT;
+	g15screen_fd = new_g15_screen(G15_G15RBUF);
 }
 
+void CanvasManager::render(){
+	for(unsigned int i = 0; i < renderObject.size(); i++){
+		renderObject[i]->render();
+	}
+}
 
 int CanvasManager::registerRendering(Renderable *obj){
 	renderObject.push_back(obj);
@@ -26,5 +32,9 @@ int CanvasManager::removeRendering(Renderable *obj){
 		}
 	}
 	return 1;
+}
+
+void CanvasManager::send(){
+	g15_send(g15screen_fd,(char *)canvas->buffer,G15_BUFFER_LEN);
 }
 

@@ -19,10 +19,13 @@ class CanvasManager{
 		inline void setXorMode(int mode){canvas->mode_xor = mode;}
 		int registerRendering(Renderable *obj);
 		int removeRendering(Renderable *obj);
+		void send();
+		void render();
 	protected:
 		g15canvas *canvas;
 		int width;
 		int height;
+		int g15screen_fd;
 		vector<Renderable*> renderObject;
 };
 

@@ -31,7 +31,7 @@ class VirtualCanvas : public Renderable{
 		inline int getHeight(){return height;}
 		inline void setWidth(int height){this->height = height;}
 		inline void setHeight(int width){this->width = width;}
-		virtual int render(){return 0;}
+		virtual int render();
 		
 		void addWidget(G15Widget *obj, int layer);
 		void deleteWidget(G15Widget *obj);
@@ -45,7 +45,9 @@ class VirtualCanvas : public Renderable{
 		int offset_y;
 		int height;
 		int width;
+		
 	private:
+		vector<Renderable*> renderObject;
 		void init();
 };
 

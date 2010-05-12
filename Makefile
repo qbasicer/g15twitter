@@ -9,7 +9,7 @@ INCPATH       = -Iinclude
 LIBS          = -lg15render -lg15daemon_client
 LINK          = g++
 LFLAGS        = -Wl,-O1
-OBJFILES      = g15twitter.o CanvasManager.o AnimationManager.o VirtualCanvas.o G15Widget.o
+OBJFILES      = g15twitter.o CanvasManager.o AnimationManager.o VirtualCanvas.o G15Widget.o SampleTwitterScreen.o
 
 all: g15twitter
 
@@ -39,3 +39,6 @@ VirtualCanvas.o: src/VirtualCanvas.cpp include/VirtualCanvas.hpp
 
 G15Widget.o: src/G15Widget.cpp include/G15Widget.hpp
 	$(CXX) -c src/G15Widget.cpp -o G15Widget.o $(CXXFLAGS) $(INCPATH)
+
+SampleTwitterScreen.o: src/SampleTwitterScreen.cpp include/SampleTwitterScreen.hpp
+	$(CXX) -c src/SampleTwitterScreen.cpp -o SampleTwitterScreen.o $(CXXFLAGS) $(INCPATH)

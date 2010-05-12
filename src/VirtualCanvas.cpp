@@ -3,12 +3,16 @@
 VirtualCanvas::VirtualCanvas(CanvasManager *cm){
 	this->cm = cm;
 	this->parent = NULL;
+	width = cm->getWidth();
+	height = cm->getHeight();
 	init();	
 }
 
 VirtualCanvas::VirtualCanvas(VirtualCanvas *parent){
 	this->cm = NULL;
-	this->parent = parent;
+	this->parent = parent;\
+	width = parent->getWidth();
+	height = parent->getHeight();
 	init();	
 }
 
@@ -18,8 +22,6 @@ VirtualCanvas::~VirtualCanvas(){
 
 void VirtualCanvas::init(){
 	xor_mode = offset_x = offset_y = 0;
-	width = parent->getWidth();
-	height = parent->getHeight();
 	
 	getCanvas()->registerRendering(this);
 }
@@ -168,10 +170,25 @@ int VirtualCanvas::getGlobalYOffset(){
 
 }
 
+int VirtualCanvas::render(){
+	for(unsigned int i = 0; i < renderObject.size(); i++){
+		renderObject[i]->render();
+	}
+	return 0;
+}
+
 void VirtualCanvas::addWidget(G15Widget *obj, int layer){
+	renderObject.push_back(obj);
 }
 
 void VirtualCanvas::deleteWidget(G15Widget *obj){
+	for(unsigned int i = 0; i < renderObject.size(); i++){
+		if(renderObject[i] == obj){
+			renderObject.erase(renderObject.begin()+i);
+			return;
+		}
+	}
+	return;
 }
 
 CanvasManager *VirtualCanvas::getCanvas(){
