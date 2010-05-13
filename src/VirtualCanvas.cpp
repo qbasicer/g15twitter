@@ -63,6 +63,7 @@ void VirtualCanvas::drawCircle(int x, int y, int r, int fill, int color){
 }
 
 void VirtualCanvas::drawText(int x, int y, int size, const char* msg){
+	printf("VirtualCanvas::drawText(%d,%d,%d,%s)\n", x, y, size, msg);
 	internalSetXorMode(xor_mode);
 	
 	x += getGlobalXOffset();
@@ -70,7 +71,7 @@ void VirtualCanvas::drawText(int x, int y, int size, const char* msg){
 	unsigned int i;
 	int row = 0;
 	int col = 0;
-	printf("VirtualCanvas::drawText(%d,%d,%d,%s)\n", x, y, size, msg);
+	
 	for(i = 0; i < strlen(msg); i++){
 		if(msg[i] == '\n'){
 			col = 0;
@@ -144,7 +145,7 @@ void VirtualCanvas::clearScreen(int col){
 
 void VirtualCanvas::internalSetXorMode(int mode){
 	if(parent){
-		parent->setXorMode(mode);
+		parent->getCanvas()->setXorMode(mode);
 	}else{
 		cm->setXorMode(mode);
 	}
@@ -175,8 +176,14 @@ int VirtualCanvas::getGlobalYOffset(){
 }
 
 int VirtualCanvas::render(){
-	paint();
 	printf("VirtualCanvas::render() (this=%p)\n",this);
+	paint();
+	paintChildren();
+	return 0;
+}
+
+int VirtualCanvas::paintChildren(){
+	
 	for(unsigned int i = 0; i < renderObject.size(); i++){
 		renderObject[i]->render();
 	}

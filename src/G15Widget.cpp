@@ -9,13 +9,10 @@ G15Widget::G15Widget(VirtualCanvas *vc):VirtualCanvas(vc){
 }
 
 G15Widget::~G15Widget(){
-	canvas->deleteWidget(this);
 }
 
 void G15Widget::init(VirtualCanvas *vcanvas){
 	canvas = vcanvas;
-	if(canvas != this){
-		canvas->addWidget(this, 0);
-	}
+
 }
 
