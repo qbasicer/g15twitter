@@ -9,7 +9,8 @@ INCPATH       = -Iinclude
 LIBS          = -lg15render -lg15daemon_client
 LINK          = g++
 LFLAGS        = -Wl,-O1
-OBJFILES      = g15twitter.o CanvasManager.o AnimationManager.o VirtualCanvas.o G15Widget.o G15TextLabel.o SampleTwitterScreen.o
+OBJFILES      = g15twitter.o CanvasManager.o AnimationManager.o VirtualCanvas.o G15Widget.o G15TextLabel.o SampleTwitterScreen.o \
+				G15TitleBar.o
 
 all: g15twitter
 
@@ -42,6 +43,9 @@ G15Widget.o: src/G15Widget.cpp include/G15Widget.hpp
 
 G15TextLabel.o: src/G15TextLabel.cpp include/G15TextLabel.hpp
 	$(CXX) -c src/G15TextLabel.cpp -o G15TextLabel.o $(CXXFLAGS) $(INCPATH)
+
+G15TitleBar.o: src/G15TitleBar.cpp include/G15TitleBar.hpp
+	$(CXX) -c src/G15TitleBar.cpp -o G15TitleBar.o $(CXXFLAGS) $(INCPATH)
 
 SampleTwitterScreen.o: src/SampleTwitterScreen.cpp include/SampleTwitterScreen.hpp
 	$(CXX) -c src/SampleTwitterScreen.cpp -o SampleTwitterScreen.o $(CXXFLAGS) $(INCPATH)

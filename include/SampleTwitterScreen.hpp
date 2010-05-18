@@ -3,6 +3,7 @@
 
 #include "G15Widget.hpp"
 #include "G15TextLabel.hpp"
+#include "G15TitleBar.hpp"
 
 class SampleTwitterScreen : public G15Widget {
 	public:
@@ -13,8 +14,9 @@ class SampleTwitterScreen : public G15Widget {
 	private:
 		
 		void init();
-		G15TextLabel *header;
+;
 		G15TextLabel *body;
+		G15TitleBar *title;
 };
 
 
