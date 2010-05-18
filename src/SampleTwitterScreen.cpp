@@ -11,6 +11,11 @@ SampleTwitterScreen::SampleTwitterScreen(VirtualCanvas *vc):G15Widget(vc){
 	init();
 }
 
+SampleTwitterScreen::~SampleTwitterScreen(){
+	delete layout;
+	delete body;
+}
+
 char* wordWrapString(const char* foo, int max){
 	char* newString = (char*)malloc(strlen(foo) + strlen(foo)/max + 1);
 	int i;

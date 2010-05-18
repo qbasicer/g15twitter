@@ -11,6 +11,11 @@ G15StandardLayout::G15StandardLayout(VirtualCanvas *vc, const char* title, G15Wi
 	init(title,main);
 }
 
+G15StandardLayout::~G15StandardLayout(){
+	delete canvas;
+	delete titlebar;
+}
+
 void G15StandardLayout::setMainWidget(G15Widget *widget){
 	if(mainWidget != NULL){
 		canvas->deleteWidget(mainWidget);
