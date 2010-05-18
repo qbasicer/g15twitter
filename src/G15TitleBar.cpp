@@ -13,4 +13,5 @@ void G15TitleBar::setText(const char* value){
 
 int G15TitleBar::paint(){
 	drawBar(0, 0, getWidth(), 7, G15_PIXEL_FILL, 1, 1, 0);
+	return 0;
 }

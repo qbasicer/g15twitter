@@ -22,6 +22,6 @@ const char* G15TextLabel::getText(){
 }
 
 int G15TextLabel::paint(){
-	printf("G15TextLabel::paint()\n");
 	drawText(0,0,G15_TEXT_MED,text);
+	return 0;
 }

@@ -11,13 +11,13 @@ SampleTwitterScreen::SampleTwitterScreen(VirtualCanvas *vc):G15Widget(vc){
 	init();
 }
 
-char* wordWrapString(char* foo, int max){
+char* wordWrapString(const char* foo, int max){
 	char* newString = (char*)malloc(strlen(foo) + strlen(foo)/max + 1);
 	int i;
 	int lptr = 0;
 	int j = 0;
 	int col = 0;
-	for(i = 0; i < strlen(foo); i++,col++,j++){
+	for(i = 0; i < (int)strlen(foo); i++,col++,j++){
 		newString[j] = foo[i];
 		if(foo[i] == '\n'){
 			col = -1;
@@ -57,7 +57,7 @@ char* wordWrapString(char* foo, int max){
 				col = 0;
 				newString[j] = '\n';
 			}else if(col == 0){
-				newString[j] = newString[j++];
+				newString[j] = newString[j+1];
 				j--;
 			}
 		}
@@ -69,7 +69,7 @@ char* wordWrapString(char* foo, int max){
 
 void SampleTwitterScreen::init(){
 	layout = new G15StandardLayout(this,"<NobodyActually> (2h)");
-	char* str = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel tortor id massa aliquam interdum. In eu neque sed ligula molestie faucibus vitae eu quam. Integer elit orci, sagittis non consequat consectetur, semper eu erat. Donec est dui, dignissim nec molestie eu, volutpat vel nunc. Suspendisse potenti. Etiam est velit, semper vitae feugiat nec, porta sed nisi. Nunc eleifend mollis turpis a pretium. Duis commodo, metus vel volutpat tincidunt, nunc odio aliquam magna, nec scelerisque ante ligula vitae risus. Maecenas et lectus tortor, a auctor orci. Etiam laoreet vehicula ipsum, non egestas augue mollis a. Phasellus convallis feugiat dolor vel condimentum.\n\n  Fusce erat mauris, commodo sed pharetra at, aliquet sit amet turpis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis convallis, justo ac iaculis dictum, mauris eros suscipit eros, ac iaculis nulla lorem eu tortor. Aliquam at lorem est, id gravida risus. Vestibulum tellus est, imperdiet id volutpat sit amet, ornare id tellus. Etiam viverra ullamcorper quam, eget ultricies ipsum sagittis sed. Pellentesque non eros dolor, ac porta purus. Nam justo felis, imperdiet sit amet congue ut, volutpat vel elit. Fusce auctor fringilla dignissim. Ut leo quam, ultrices vel vulputate in, pharetra placerat nibh.";
+	const char* str = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel tortor id massa aliquam interdum. In eu neque sed ligula molestie faucibus vitae eu quam. Integer elit orci, sagittis non consequat consectetur, semper eu erat. Donec est dui, dignissim nec molestie eu, volutpat vel nunc. Suspendisse potenti. Etiam est velit, semper vitae feugiat nec, porta sed nisi. Nunc eleifend mollis turpis a pretium. Duis commodo, metus vel volutpat tincidunt, nunc odio aliquam magna, nec scelerisque ante ligula vitae risus. Maecenas et lectus tortor, a auctor orci. Etiam laoreet vehicula ipsum, non egestas augue mollis a. Phasellus convallis feugiat dolor vel condimentum.\n\n  Fusce erat mauris, commodo sed pharetra at, aliquet sit amet turpis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis convallis, justo ac iaculis dictum, mauris eros suscipit eros, ac iaculis nulla lorem eu tortor. Aliquam at lorem est, id gravida risus. Vestibulum tellus est, imperdiet id volutpat sit amet, ornare id tellus. Etiam viverra ullamcorper quam, eget ultricies ipsum sagittis sed. Pellentesque non eros dolor, ac porta purus. Nam justo felis, imperdiet sit amet congue ut, volutpat vel elit. Fusce auctor fringilla dignissim. Ut leo quam, ultrices vel vulputate in, pharetra placerat nibh.";
 	char* wrapped = wordWrapString(str,30);
 	body = new G15TextLabel(wrapped, this);
 	layout->setMainWidget(body);
