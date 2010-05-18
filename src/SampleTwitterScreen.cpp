@@ -68,13 +68,13 @@ char* wordWrapString(char* foo, int max){
 }
 
 void SampleTwitterScreen::init(){
-	title = new G15TitleBar("<NobodyActually> (2h)", this);
+	layout = new G15StandardLayout(this,"<NobodyActually> (2h)");
 	char* str = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel tortor id massa aliquam interdum. In eu neque sed ligula molestie faucibus vitae eu quam. Integer elit orci, sagittis non consequat consectetur, semper eu erat. Donec est dui, dignissim nec molestie eu, volutpat vel nunc. Suspendisse potenti. Etiam est velit, semper vitae feugiat nec, porta sed nisi. Nunc eleifend mollis turpis a pretium. Duis commodo, metus vel volutpat tincidunt, nunc odio aliquam magna, nec scelerisque ante ligula vitae risus. Maecenas et lectus tortor, a auctor orci. Etiam laoreet vehicula ipsum, non egestas augue mollis a. Phasellus convallis feugiat dolor vel condimentum.\n\n  Fusce erat mauris, commodo sed pharetra at, aliquet sit amet turpis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis convallis, justo ac iaculis dictum, mauris eros suscipit eros, ac iaculis nulla lorem eu tortor. Aliquam at lorem est, id gravida risus. Vestibulum tellus est, imperdiet id volutpat sit amet, ornare id tellus. Etiam viverra ullamcorper quam, eget ultricies ipsum sagittis sed. Pellentesque non eros dolor, ac porta purus. Nam justo felis, imperdiet sit amet congue ut, volutpat vel elit. Fusce auctor fringilla dignissim. Ut leo quam, ultrices vel vulputate in, pharetra placerat nibh.";
 	char* wrapped = wordWrapString(str,30);
 	body = new G15TextLabel(wrapped, this);
+	layout->setMainWidget(body);
 	free(wrapped);
-	addWidget(title,0);
-	addWidget(body,0);
+	
 }
 
 int SampleTwitterScreen::paint(){
@@ -88,15 +88,12 @@ int SampleTwitterScreen::paint(){
 	for(i = 0; i >= eend; i--){
 		clearScreen(G15_PIXEL_NOFILL);
 		body->move(0, 9+i);
-		drawBar(0, 0, 160, 7, G15_PIXEL_FILL, 1, 1, 0);
-		paintChildren();
-		//setXorMode(1);
-		//vc->drawText(0, 1, G15_TEXT_MED, "<NobodyActually> (2h)");
-		//setXorMode(1);
+		
+		layout->render();
+		
 		drawBar(0, 34, 160, 42, G15_PIXEL_NOFILL, 1, 1, 0);
 		drawRoundedBox(0, 35, 38, 50, G15_PIXEL_NOFILL, G15_PIXEL_FILL);
-		//vc->drawText(5,37,G15_TEXT_MED,"PREV");
-		
+				
 		getCanvas()->getCanvas()->send();
 		if(i % 7){
 			usleep(50000);

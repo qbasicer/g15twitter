@@ -7,6 +7,7 @@ class G15TitleBar : public G15Widget{
 	public:
 		G15TitleBar(const char* value, G15Widget *parent);
 		virtual int paint();
+		void setText(const char* value);
 	private:
 		G15Widget *text;
 };

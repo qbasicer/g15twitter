@@ -7,6 +7,10 @@ G15TitleBar::G15TitleBar(const char* value, G15Widget *parent):G15Widget(parent)
 	addWidget(text,0);
 }
 
+void G15TitleBar::setText(const char* value){
+	((G15TextLabel*)text)->setText(value);
+}
+
 int G15TitleBar::paint(){
 	drawBar(0, 0, getWidth(), 7, G15_PIXEL_FILL, 1, 1, 0);
 }

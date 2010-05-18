@@ -29,11 +29,12 @@ class VirtualCanvas : public Renderable{
 		inline void setWidth(int height){this->height = height;}
 		inline void setHeight(int width){this->width = width;}
 		virtual int render();
-		
-	protected:
-		void setOffset(int x, int y);
 		void addWidget(VirtualCanvas *obj, int layer);
 		void deleteWidget(VirtualCanvas *obj);
+	protected:
+		void setOffset(int x, int y);
+		
+		
 		inline void internalSetXorMode(int mode);
 		virtual int paintChildren();
 		virtual int paint();
