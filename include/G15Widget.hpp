@@ -10,10 +10,8 @@ class G15Widget : public VirtualCanvas{
 		G15Widget(CanvasManager *cm);
 		G15Widget(VirtualCanvas *vcanvas);
 		~G15Widget();
-		inline VirtualCanvas *getCanvas(){return canvas;}
 	private:
 		void init(VirtualCanvas *vcanvas);
-		VirtualCanvas *canvas;
 };
 
 

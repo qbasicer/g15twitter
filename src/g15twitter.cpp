@@ -7,7 +7,10 @@
 int main(int argc, char* argv[]){
 	CanvasManager *cm = new CanvasManager();
 	AnimationManager *am = new AnimationManager(cm);
-	SampleTwitterScreen sts(cm);
-	cm->render();
+	{
+		SampleTwitterScreen sts(cm);
+		cm->render();
+	}
+	delete cm;
 	exit(0);
 }

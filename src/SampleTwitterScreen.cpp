@@ -79,6 +79,13 @@ void SampleTwitterScreen::init(){
 	body = new G15TextLabel(wrapped, this);
 	layout->setMainWidget(body);
 	free(wrapped);
+	quit = 0;
+	getCanvas()->setKeyHandler(this);
+	
+}
+
+int SampleTwitterScreen::G15HandleKeypress(int key){
+	quit = 1;
 	
 }
 
@@ -98,8 +105,11 @@ int SampleTwitterScreen::paint(){
 		
 		drawBar(0, 34, 160, 42, G15_PIXEL_NOFILL, 1, 1, 0);
 		drawRoundedBox(0, 35, 38, 50, G15_PIXEL_NOFILL, G15_PIXEL_FILL);
-				
-		getCanvas()->getCanvas()->send();
+
+		getCanvas()->send();
+		if(quit){
+			break;
+		}
 		if(i % 7){
 			usleep(50000);
 		}else{
