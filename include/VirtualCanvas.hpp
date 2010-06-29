@@ -4,6 +4,13 @@
 #include "CanvasManager.hpp"
 #include "Renderable.hpp"
 
+enum ATTRIBUTES{
+	ATTRIBUTE_HEIGHT,
+	ATTRIBUTE_WIDTH,
+	ATTRIBUTE_X_OFFSET,
+	ATTRIBUTE_Y_OFFSET
+};
+
 class VirtualCanvas : public Renderable{
 	public:
 		VirtualCanvas(CanvasManager *cm);
@@ -33,6 +40,9 @@ class VirtualCanvas : public Renderable{
 		VirtualCanvas *getParent(){return parent;}
 		void addWidget(VirtualCanvas *obj, int layer);
 		void deleteWidget(VirtualCanvas *obj);
+		
+		virtual void setAttribute(ATTRIBUTES attr, int value);
+		virtual int getAttribute(ATTRIBUTES attr);
 	protected:
 		void setOffset(int x, int y);
 		

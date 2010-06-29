@@ -213,3 +213,28 @@ CanvasManager *VirtualCanvas::getCanvas(){
 	return cm;
 }
 
+
+void VirtualCanvas::setAttribute(ATTRIBUTES attr, int value){
+	switch(attr){
+		case ATTRIBUTE_HEIGHT:
+			resize(value,getWidth());
+			break;
+		case ATTRIBUTE_WIDTH:
+			resize(getHeight(),value);
+			break;
+		default:
+			break;
+	}
+}
+
+int VirtualCanvas::getAttribute(ATTRIBUTES attr){
+	switch(attr){
+		case ATTRIBUTE_HEIGHT:
+			return getHeight();
+		case ATTRIBUTE_WIDTH:
+			return getWidth();
+		default:
+			return -1;
+	}
+}
+
