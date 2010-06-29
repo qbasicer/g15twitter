@@ -35,6 +35,7 @@ void VirtualCanvas::drawRoundedBox(int x1, int y1, int x2, int y2, int dofill, i
 	x2 += getGlobalXOffset();
 	y1 += getGlobalYOffset();
 	y2 += getGlobalYOffset();
+	
 	g15r_drawRoundBox (getCanvas()->getCanvas(), x1, y1, x2, y2, dofill, fill);
 	
 	internalSetXorMode(0);
@@ -70,7 +71,6 @@ void VirtualCanvas::drawText(int x, int y, int size, const char* msg){
 	unsigned int i;
 	int row = 0;
 	int col = 0;
-	
 	for(i = 0; i < strlen(msg); i++){
 		if(msg[i] == '\n'){
 			col = 0;
@@ -161,14 +161,14 @@ void VirtualCanvas::setOffset(int x, int y){
 
 int VirtualCanvas::getGlobalXOffset(){
 	if(parent){
-		return getLocalXOffset() + parent->getLocalXOffset();
+		return getLocalXOffset() + parent->getGlobalXOffset();
 	}
 	return getLocalXOffset();
 }
 
 int VirtualCanvas::getGlobalYOffset(){
 	if(parent){
-		return getLocalYOffset() + parent->getLocalYOffset();
+		return getLocalYOffset() + parent->getGlobalYOffset();
 	}
 	return getLocalYOffset();
 

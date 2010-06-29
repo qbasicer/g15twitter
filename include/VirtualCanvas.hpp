@@ -19,6 +19,7 @@ class VirtualCanvas : public Renderable{
 		void clearScreen(int col);
 		void setXorMode(int mode);
 		inline void move(int x, int y){setOffset(x,y);}
+		inline void resize(int h, int w){height = h; width = w;}
 		inline int getLocalXOffset(){return offset_x;}
 		inline int getLocalYOffset(){return offset_y;}
 		int getGlobalXOffset();
@@ -29,6 +30,7 @@ class VirtualCanvas : public Renderable{
 		inline void setWidth(int height){this->height = height;}
 		inline void setHeight(int width){this->width = width;}
 		virtual int render();
+		VirtualCanvas *getParent(){return parent;}
 		void addWidget(VirtualCanvas *obj, int layer);
 		void deleteWidget(VirtualCanvas *obj);
 	protected:

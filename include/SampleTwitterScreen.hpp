@@ -5,6 +5,7 @@
 #include "G15TextLabel.hpp"
 #include "G15StandardLayout.hpp"
 #include "G15Inputtable.hpp"
+#include "G15Button.hpp"
 
 class SampleTwitterScreen : public G15Widget,G15Inputtable {
 	public:
@@ -15,11 +16,11 @@ class SampleTwitterScreen : public G15Widget,G15Inputtable {
 	protected:
 		virtual int paint();
 	private:
-		
 		void init();
 		int quit;
 		G15TextLabel *body;
 		G15StandardLayout *layout;
+		G15Button *testBtn;
 };
 
 

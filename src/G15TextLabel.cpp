@@ -4,7 +4,7 @@
 #include "G15TextLabel.hpp"
 
 
-G15TextLabel::G15TextLabel(const char* value, G15Widget *parent):G15Widget(parent->getCanvas()){
+G15TextLabel::G15TextLabel(const char* value, G15Widget *parent):G15Widget(parent){
 	text = NULL;
 	setText(value);
 }
