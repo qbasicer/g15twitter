@@ -10,7 +10,7 @@ LIBS          = -lg15render -lg15daemon_client
 LINK          = g++
 LFLAGS        = -Wl,-O1
 OBJFILES      = g15twitter.o CanvasManager.o AnimationManager.o VirtualCanvas.o G15Widget.o G15TextLabel.o SampleTwitterScreen.o \
-				G15TitleBar.o G15StandardLayout.o G15Inputtable.o G15Button.o 
+				G15TitleBar.o G15StandardLayout.o G15Inputtable.o G15Button.o Animation.o
 
 all: g15twitter
 
@@ -60,3 +60,6 @@ G15Button.o: src/G15Button.cpp include/G15Button.hpp
 
 SampleTwitterScreen.o: src/SampleTwitterScreen.cpp include/SampleTwitterScreen.hpp
 	$(CXX) -c src/SampleTwitterScreen.cpp -o SampleTwitterScreen.o $(CXXFLAGS) $(INCPATH)
+
+Animation.o: src/Animation.cpp include/Animation.hpp
+	$(CXX) -c src/Animation.cpp -o Animation.o $(CXXFLAGS) $(INCPATH)
