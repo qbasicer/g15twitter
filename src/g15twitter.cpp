@@ -10,6 +10,7 @@ int main(int argc, char* argv[]){
 	{
 		SampleTwitterScreen sts(cm);
 		cm->render();
+		sleep(50);
 	}
 	delete cm;
 	exit(0);

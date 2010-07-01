@@ -216,6 +216,12 @@ CanvasManager *VirtualCanvas::getCanvas(){
 
 void VirtualCanvas::setAttribute(ATTRIBUTES attr, int value){
 	switch(attr){
+		case ATTRIBUTE_X_OFFSET:
+			move(value,getLocalYOffset());
+			break;
+		case ATTRIBUTE_Y_OFFSET:
+			move(getLocalXOffset(),value);
+			break;
 		case ATTRIBUTE_HEIGHT:
 			resize(value,getWidth());
 			break;

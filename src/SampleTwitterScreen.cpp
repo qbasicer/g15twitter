@@ -2,6 +2,10 @@
 #include <cstdio>
 #include <unistd.h>
 #include "SampleTwitterScreen.hpp"
+#include "AnimationSequence.hpp"
+#include <iostream>
+
+using namespace std;
 
 SampleTwitterScreen::SampleTwitterScreen(CanvasManager *cm):G15Widget(cm){
 	init();
@@ -80,10 +84,31 @@ void SampleTwitterScreen::init(){
 	const char* str = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel tortor id massa aliquam interdum. In eu neque sed ligula molestie faucibus vitae eu quam. Integer elit orci, sagittis non consequat consectetur, semper eu erat. Donec est dui, dignissim nec molestie eu, volutpat vel nunc. Suspendisse potenti. Etiam est velit, semper vitae feugiat nec, porta sed nisi. Nunc eleifend mollis turpis a pretium. Duis commodo, metus vel volutpat tincidunt, nunc odio aliquam magna, nec scelerisque ante ligula vitae risus. Maecenas et lectus tortor, a auctor orci. Etiam laoreet vehicula ipsum, non egestas augue mollis a. Phasellus convallis feugiat dolor vel condimentum.\n\n  Fusce erat mauris, commodo sed pharetra at, aliquet sit amet turpis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis convallis, justo ac iaculis dictum, mauris eros suscipit eros, ac iaculis nulla lorem eu tortor. Aliquam at lorem est, id gravida risus. Vestibulum tellus est, imperdiet id volutpat sit amet, ornare id tellus. Etiam viverra ullamcorper quam, eget ultricies ipsum sagittis sed. Pellentesque non eros dolor, ac porta purus. Nam justo felis, imperdiet sit amet congue ut, volutpat vel elit. Fusce auctor fringilla dignissim. Ut leo quam, ultrices vel vulputate in, pharetra placerat nibh.";
 	char* wrapped = wordWrapString(str,30);
 	body = new G15TextLabel(wrapped, this);
+	body->move(0,9);
+	int scrolls = 30;
+	AnimationSequence *aseq = new AnimationSequence(30,5,10,1.0f);
+	Animation *anim = new Animation(body,ATTRIBUTE_Y_OFFSET,9,9,PAINT_MODE_PAINT_CUSTOM,this);
+	aseq->addAnimation(anim);
+	AnimationSequence *prev = aseq;
+	for(int i = 0; i <= scrolls; i++){
+		AnimationSequence *aseq_next = new AnimationSequence(10,5,10,0.5f);
+		Animation *anim_next = new Animation(body,ATTRIBUTE_Y_OFFSET,9-(i*7),9-((i+1)*7),PAINT_MODE_PAINT_CUSTOM,this);
+		aseq_next->addAnimation(anim_next);
+		prev->addTrigger(aseq_next);
+		
+		AnimationSequence *sleeper = new AnimationSequence(30,5,10,1.0f);
+		Animation *sanim = new Animation(body,ATTRIBUTE_Y_OFFSET,9-((i+1)*7),9-((i+1)*7),PAINT_MODE_PAINT_CUSTOM,this);
+		sleeper->addAnimation(sanim);
+		aseq_next->addTrigger(sleeper);
+				
+		prev = sleeper;
+	}
+	
 	layout->setMainWidget(body);
 	free(wrapped);
 	quit = 0;
 	getCanvas()->setKeyHandler(this);
+	aseq->start();
 	
 }
 
@@ -100,9 +125,9 @@ int SampleTwitterScreen::paint(){
 	if (scrolls > 0){
 		eend = 0-(scrolls*7);
 	}
-	for(i = 0; i >= eend; i--){
+// 	for(i = 0; i >= eend; i--){
 		clearScreen(G15_PIXEL_NOFILL);
-		body->move(0, 9+i);
+		//body->move(0, 9+i);
 		
 		layout->render();
 		drawBar(0, 34, 160, 42, G15_PIXEL_NOFILL, 1, 1, 0);
@@ -113,13 +138,13 @@ int SampleTwitterScreen::paint(){
 
 		getCanvas()->send();
 		if(quit){
-			break;
+			//break;
 		}
-		if(i % 7){
-			usleep(50000);
-		}else{
-			sleep(3);
-		}
-	}
+// 		if(i % 7){
+// 			usleep(50000);
+// 		}else{
+// 			sleep(3);
+// 		}
+// 	}
 	return 0;
 }
